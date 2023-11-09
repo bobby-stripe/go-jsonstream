@@ -378,6 +378,42 @@ func (r *Reader) Any() AnyValue {
 	}
 }
 
+// AnyIgnoringString reads a single value of any type, if it is a scalar value or a null, or prepares to read
+// the value if it is an array or object.
+//
+// The returned AnyValue's Kind field indicates the value type. If it is BoolValue, NumberValue,
+// or StringValue, check the corresponding Bool, Number, or String property. If it is ArrayValue
+// or ObjectValue, the AnyValue's Array or Object field has been initialized with an ArrayState or
+// ObjectState just as if you had called the Reader's Array or Object method.
+//
+// If there is a parsing error, the return value is the same as for a null and the Reader enters
+// a failed state, which you can detect with Error().
+func (r *Reader) AnyIgnoringString() AnyValue {
+	r.awaitingReadValue = false
+	if r.err != nil {
+		return AnyValue{}
+	}
+	v, err := r.tr.AnyIgnoringString()
+	if err != nil {
+		r.err = err
+		return AnyValue{}
+	}
+	switch v.Kind {
+	case BoolValue:
+		return AnyValue{Kind: v.Kind, Bool: v.Bool}
+	case NumberValue:
+		return AnyValue{Kind: v.Kind, Number: v.Number}
+	case StringValue:
+		return AnyValue{Kind: v.Kind, String: v.String}
+	case ArrayValue:
+		return AnyValue{Kind: v.Kind, Array: ArrayState{r: r}}
+	case ObjectValue:
+		return AnyValue{Kind: v.Kind, Object: ObjectState{r: r}}
+	default:
+		return AnyValue{Kind: NullValue}
+	}
+}
+
 // SkipValue consumes and discards the next JSON value of any type. For an array or object value, it
 // recurses to also consume and discard all array elements or object properties.
 func (r *Reader) SkipValue() error {
@@ -385,7 +421,7 @@ func (r *Reader) SkipValue() error {
 	if r.err != nil {
 		return r.err
 	}
-	v := r.Any()
+	v := r.AnyIgnoringString()
 	if v.Kind == ArrayValue {
 		for v.Array.Next() {
 		}

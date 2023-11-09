@@ -279,6 +279,36 @@ func (r *tokenReader) Any() (AnyValue, error) {
 	}
 }
 
+// Any checks whether the next token is either a valid JSON scalar value or the opening delimiter of
+// an array or object value. If so, it returns (AnyValue, nil) and consumes the token; if not, it
+// returns an error. Unlike Reader.Any(), for array and object values it does not create an
+// ArrayState or ObjectState.
+func (r *tokenReader) AnyIgnoringString() (AnyValue, error) {
+	t, err := r.next()
+	if err != nil {
+		return AnyValue{}, err
+	}
+	switch t.kind {
+	case boolToken:
+		return AnyValue{Kind: BoolValue, Bool: t.boolValue}, nil
+	case numberToken:
+		return AnyValue{Kind: NumberValue, Number: t.numberValue}, nil
+	case stringToken:
+		return AnyValue{Kind: StringValue, String: ""}, nil
+	case delimiterToken:
+		if t.delimiter == '[' {
+			return AnyValue{Kind: ArrayValue}, nil
+		}
+		if t.delimiter == '{' {
+			return AnyValue{Kind: ObjectValue}, nil
+		}
+		return AnyValue{},
+			SyntaxError{Message: errMsgUnexpectedChar, Value: string(t.delimiter), Offset: r.lastPos}
+	default:
+		return AnyValue{Kind: NullValue}, nil
+	}
+}
+
 // Attempts to parse and consume the next token, ignoring whitespace. A token is either a valid JSON scalar
 // value or an ASCII delimiter character. If a token was previously unread using putBack, it consumes that
 // instead.
