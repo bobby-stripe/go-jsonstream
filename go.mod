@@ -1,9 +1,9 @@
-module github.com/launchdarkly/go-jsonstream/v3
+module github.com/bobby-stripe/go-jsonstream/v3
 
 go 1.18
 
 require (
-	github.com/mailru/easyjson v0.7.6
+	github.com/mailru/easyjson v0.7.7
 	github.com/stretchr/testify v1.6.1
 )
 

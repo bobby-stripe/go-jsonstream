@@ -4,7 +4,7 @@
 
 ## Overview
 
-The `go-jsonstream` library implements a streaming approach to JSON encoding and decoding which is more efficient than the standard mechanism in `encoding/json`. Unlike `encoding/json` or other reflection-based frameworks, it has no knowledge of structs or other complex types; you must explicitly tell it what values and properties to write or read. It was implemented for the [LaunchDarkly Go SDK](https://github.com/launchdarkly/go-server-sdk) and other LaunchDarkly Go components, but may be useful in other applications.
+The `go-jsonstream` library implements a streaming approach to JSON encoding and decoding which is more efficient than the standard mechanism in `encoding/json`. Unlike `encoding/json` or other reflection-based frameworks, it has no knowledge of structs or other complex types; you must explicitly tell it what values and properties to write or read. It was implemented for the [LaunchDarkly Go SDK](https://github.com/bobby-stripe/go-server-sdk) and other LaunchDarkly Go components, but may be useful in other applications.
 
 There are two possible implementations, selectable via build tags:
 
@@ -43,4 +43,4 @@ We encourage pull requests and other contributions from the community. Check out
     * [docs.launchdarkly.com](https://docs.launchdarkly.com/  "LaunchDarkly Documentation") for our documentation and SDK reference guides
     * [apidocs.launchdarkly.com](https://apidocs.launchdarkly.com/  "LaunchDarkly API Documentation") for our API documentation
     * [blog.launchdarkly.com](https://blog.launchdarkly.com/  "LaunchDarkly Blog Documentation") for the latest product updates
-    * [Feature Flagging Guide](https://github.com/launchdarkly/featureflags/  "Feature Flagging Guide") for best practices and strategies
+    * [Feature Flagging Guide](https://github.com/bobby-stripe/featureflags/  "Feature Flagging Guide") for best practices and strategies

@@ -2,7 +2,7 @@
 
 ## Submitting bug reports and feature requests
 
-The LaunchDarkly SDK team monitors the [issue tracker](https://github.com/launchdarkly/go-jsonstream/issues) in tis repository. Bug reports and feature requests specific to this project should be filed in this issue tracker. The SDK team will respond to all newly filed issues within two business days.
+The LaunchDarkly SDK team monitors the [issue tracker](https://github.com/bobby-stripe/go-jsonstream/issues) in tis repository. Bug reports and feature requests specific to this project should be filed in this issue tracker. The SDK team will respond to all newly filed issues within two business days.
  
 ## Submitting pull requests
  

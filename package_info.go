@@ -6,5 +6,5 @@
 // tag "launchdarkly_easyjson" causes them to use https://github.com/mailru/easyjson as the
 // underlying reader/writer implementation.
 //
-// For more information, see: https://github.com/launchdarkly/go-jsonstream
+// For more information, see: https://github.com/bobby-stripe/go-jsonstream
 package jsonstream
