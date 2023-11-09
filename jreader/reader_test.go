@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/launchdarkly/go-jsonstream/v3/internal/commontest"
+	"github.com/bobby-stripe/go-jsonstream/v3/internal/commontest"
 
 	"github.com/stretchr/testify/require"
 )
