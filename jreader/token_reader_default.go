@@ -150,6 +150,15 @@ func (r *tokenReader) String() (string, error) {
 	return string(t.stringValue), err
 }
 
+// StringAsBytes requires that the next token is a JSON string, returning its value if successful (consuming
+// the token), or an error if the next token is anything other than a JSON string.
+//
+// This and all other tokenReader methods skip transparently past whitespace between tokens.
+func (r *tokenReader) StringAsBytes() ([]byte, error) {
+	t, err := r.consumeScalar(stringToken)
+	return t.stringValue, err
+}
+
 // PropertyName requires that the next token is a JSON string and the token after that is a colon,
 // returning the string as a byte slice if successful, or an error otherwise.
 //
